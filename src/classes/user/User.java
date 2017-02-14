@@ -23,17 +23,38 @@ public abstract class User {
 	
 	public abstract boolean buyGame(Game g);
 	
-	public void regMove(String s, int score, boolean finished) throws Exception {
+	public boolean regMove(String gameName, int score, boolean finished) throws Exception {
+		if (gameName == null) throw new NullPointerException();
+		
 		for (Game g : games) {
-			if (g.getName().equals(s)) x2p += g.regMove(score, finished);
-		}
+			if (g.getName().equals(gameName)){
+				x2p += g.regMove(score, finished);
+				return true;
+			}
+		}		
+		
+		return false;
 	}
 
 	public String getId() {
 		return id;
 	}
 	
-	public void setCash(double cash) {
+	public void setCash(double cash) throws EmptyParameterException {
+		if (cash <= 0) throw new EmptyParameterException();
 		this.cash = cash;
+	}
+	
+	@Override
+	public String toString() {
+		return "User [id=" + id + "]";
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (! (obj instanceof User)) return false;		
+		User temp_obj = (User) obj;	
+		
+		return this.id.equals(temp_obj.getId());
 	}
 }
