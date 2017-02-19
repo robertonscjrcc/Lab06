@@ -1,4 +1,4 @@
-package classes.intfc;
+package classes.main;
 
 import java.util.Scanner;
 
@@ -6,7 +6,8 @@ public class Main {
 	public static void main(String[] args) {
 		Shop sh = new Shop();
 		Scanner sc = new Scanner(System.in);
-		String tempName, tempId, tempType;
+		String tempName, tempId, tempType, tempFinished;
+		int tempScore;
 		double tempCost, tempCash;
 		int op;
 		
@@ -77,7 +78,7 @@ public class Main {
 					break;
 					
 				case 4:
-					System.out.println("Digite o id do usuário");
+					System.out.println("Digite o id do usuário: ");
 					tempId = sc.next();
 					sc.nextLine();
 					System.out.println("Digite a quantidade de créditos a serem adicionados: ");
@@ -93,11 +94,30 @@ public class Main {
 					break;
 					
 				case 5:
-					System.out.println("Imprimir informações");
+					System.out.println("Digite o id do usuário: ");
+					tempId = sc.next();
+					sc.nextLine();
+					System.out.println(sh.printUser(tempId));
 					break;
 					
 				case 6:
-					System.out.println("Registrar jogada");
+					System.out.println("Digite o id do usuário: ");
+					tempId = sc.next();
+					sc.nextLine();
+					System.out.println("Digite o nome do jogo: ");
+					tempName = sc.next();
+					sc.nextLine();					
+					System.out.println("Digite a pontuação: ");
+					tempScore = sc.nextInt();
+					sc.nextLine();
+					System.out.println("O jogador zerou o jogo? (Sim ou Não)");
+					tempFinished = sc.next();
+					sc.nextLine();
+					try {
+						sh.getUser(tempId).regMove(tempName, tempScore, (tempFinished.toUpperCase().equals("SIM") ? true : false));
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 					break;
 					
 				case 0:

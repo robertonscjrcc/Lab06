@@ -3,7 +3,7 @@ package classes.game;
 import java.util.ArrayList;
 
 import enums.GameStyle;
-import exceptions.EmptyParameterException;
+import exceptions.InvalidValueException;
 
 public abstract class Game {
 	private String name;
@@ -13,9 +13,9 @@ public abstract class Game {
 	protected int played;
 	protected int finished;
 	
-	public Game(String name, double cost) throws Exception{
+	public Game(String name, double cost) throws Exception {
 		if (name == null) throw new NullPointerException("Parâmetro nulo");
-		if (name == "" || cost < 0) throw new EmptyParameterException("Parâmetro vazio");
+		if (name == "" || cost < 0) throw new InvalidValueException("Parâmetro vazio");
 		
 		this.name = name;
 		this.cost = cost;
@@ -24,7 +24,14 @@ public abstract class Game {
 		this.finished = 0;
 	}
 	
-	public abstract int regMove(int score, boolean finished) throws Exception;
+	public int regMove(int score, boolean finished) throws Exception {
+		if (score < 0) throw new InvalidValueException();
+		
+		if (finished) this.finished++;
+		if (score > this.score) this.score = score;
+		
+		return 0;
+	}
 	
 	public boolean addStyle(GameStyle gs){
 		if (gs == null) throw new NullPointerException();

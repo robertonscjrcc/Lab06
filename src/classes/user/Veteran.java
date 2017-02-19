@@ -21,4 +21,9 @@ public class Veteran extends User{
 		
 		return false;
 	}	
+	
+	@Override
+	public String toString() {
+		return "User: " + id + System.lineSeparator() + "";
+	}
 }

@@ -1,4 +1,4 @@
-package classes.intfc;
+package classes.main;
 
 import java.util.ArrayList;
 
@@ -46,16 +46,25 @@ public class Shop {
 	
 	public boolean sellGame(String id, String gameName) throws Exception {
 		for (Game g : games) {
-			if (g.getName().equals(id))
+			if (g.getName().equals(gameName))
 				for (User u : users) {
 					if (u.getId().equals(id))
-						if (u.buyGame(g))
-							return true;
-						else 
-							return false;
+						return u.buyGame(g);
 				}
 		}	
 		
 		throw new InexistentParameterException();
+	}
+	
+	public String printUser(String id) {
+		return this.getUser(id).toString();
+	}
+	
+	public User getUser(String id) {
+		for (User u : users) {
+			if (u.getId().equals(id)) return u;
+		}
+		
+		return null;
 	}
 }

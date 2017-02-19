@@ -3,7 +3,7 @@ package classes.user;
 import java.util.ArrayList;
 
 import classes.game.Game;
-import exceptions.EmptyParameterException;
+import exceptions.InvalidValueException;
 
 public abstract class User {
 	protected String name;
@@ -14,7 +14,7 @@ public abstract class User {
 	
 	public User(String name, String id) throws Exception {
 		if (name == null || id == null) throw new NullPointerException();
-		if (name == "" || id == "") throw new EmptyParameterException();
+		if (name == "" || id == "") throw new InvalidValueException();
 		
 		this.name = name;
 		this.id = id;
@@ -40,14 +40,9 @@ public abstract class User {
 		return id;
 	}
 	
-	public void setCash(double cash) throws EmptyParameterException {
-		if (cash <= 0) throw new EmptyParameterException();
+	public void setCash(double cash) throws InvalidValueException {
+		if (cash <= 0) throw new InvalidValueException();
 		this.cash = cash;
-	}
-	
-	@Override
-	public String toString() {
-		return "User [id=" + id + "]";
 	}
 	
 	@Override
